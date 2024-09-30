@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarefas - Task & Tracker</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+</head>
+<body>
+
+  
+    <nav>
+        <div class="nav-wrapper blue">
+          <a href="#" class="brand-logo center">Task & Tracker</a>
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li class="active"><a href="../index.html">Início</a></li> <!-- Tela atual -->
+            <li><a href="tarefas.html">Tarefas</a></li> <!-- Link para a tela de Tarefas -->
+            <li><a href="../habitos/habitos.html">Hábitos</a></li> <!-- Link para a tela de Hábitos -->
+          </ul>
+        </div>
+      </nav>
+
+  <div class="container">
+    <!-- Título -->
+    <h5 class="center-align">Tarefas</h5>
+
+    <!-- Tabs para Pendentes e Concluídas -->
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s6"><a class="active" href="#pendentes">Pendentes</a></li>
+          <li class="tab col s6"><a href="#concluidas">Concluídas</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tarefas Pendentes -->
+    <div id="pendentes" class="col s12">
+      <ul id="lista-tarefas-pendentes" class="collection">
+        <!-- Tarefas pendentes serão inseridas aqui -->
+      </ul>
+    </div>
+
+    <!-- Tarefas Concluídas -->
+    <div id="concluidas" class="col s12">
+      <ul id="lista-tarefas-concluidas" class="collection">
+        <!-- Tarefas concluídas serão inseridas aqui -->
+      </ul>
+    </div>
+  </div>
+
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue modal-trigger" href="#modal-add-tarefa">
+        <i class="large material-icons">add</i>
+    </a>
+</div>
+</div>
+<div id="modal-add-tarefa" class="modal">
+    <div class="modal-content">
+        <h4>Adicionar Tarefa</h4>
+        <div class="input-field">
+            <input id="descricao-tarefa" type="text">
+            <label for="descricao-tarefa">Descrição da Tarefa</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <a href="#" class="waves-effect waves-green btn-flat" id="salvar-tarefa-btn">Salvar</a>
+    </div>
+</div>
+
+
+
+  <!-- Materialize JS and jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="tarefas.js"></script>
+</body>
+</html>
