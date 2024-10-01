@@ -11,57 +11,36 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
       })
       .then(data => {
+        console.log('Dados de hábitos:', data);
         const listaHabitos = document.getElementById('lista-habitos');
-const historicoHabitos = document.getElementById('historico-habitos');
+        
+        if (listaHabitos) {
+          listaHabitos.innerHTML = '';
 
-    if (listaHabitos && historicoHabitos) {
-      listaHabitos.innerHTML = '';
-      historicoHabitos.innerHTML = '';
-
-        // Usando for...of para iterar sobre os hábitos
-        for (const habito of data.habitos) {
-          const li = document.createElement('li');
-          li.classList.add('collection-item');
-          li.textContent = habito.descricao;
-          listaHabitos.appendChild(li);
+          if (Array.isArray(data)) {
+            // Iterando sobre os hábitos
+            for (const habito of data) {
+              if (habito && habito.descricao) {  // Verificação de 'descricao'
+                const li = document.createElement('li');
+                li.classList.add('collection-item');
+                li.textContent = habito.descricao;
+                listaHabitos.appendChild(li);
+              } else {
+                console.error('Hábito mal formado:', habito);
+              }
+            }
+          } else {
+            console.error('Os dados de hábitos não são um array válido:', data);
+          }
+        } else {
+          console.error('Elemento listaHabitos não encontrado no DOM');
         }
-
-        // Usando for...of para iterar sobre o histórico
-        for (const historico of data.historico) {
-          const li = document.createElement('li');
-          li.classList.add('collection-item');
-          li.textContent = `Hábito: ${historico.habito.descricao} - Data: ${historico.data}`;
-          historicoHabitos.appendChild(li);
-        }
-      }
       })
       .catch(error => console.error('Erro ao carregar hábitos:', error));
   }
-  
-
-  function adicionarHabito() {
-    document.getElementById('form-habito').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const descricaoHabito = document.getElementById('descricao_habito').value;
-
-      fetch('http://localhost:8080/habito-historico/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ descricao: descricaoHabito })
-      })
-      .then(response => response.json())
-      .then(data => {
-        M.toast({html: 'Hábito adicionado com sucesso!'});
-        carregarHabitos();
-      })
-      .catch(error => console.error('Erro ao adicionar hábito:', error));
-    });
-  }
 
   function carregarHistoricoHabitos() {
-    fetch('http://localhost:8080/habito-historico/all')  // Adicione o endpoint correto aqui
+    fetch('http://localhost:8080/habito-historico/all')
       .then(response => {
         if (!response.ok) {
           throw new Error('Erro na resposta da rede');
@@ -69,20 +48,62 @@ const historicoHabitos = document.getElementById('historico-habitos');
         return response.json();
       })
       .then(data => {
-        const historicoList = document.getElementById('historico-habitos-list');
-        historicoList.innerHTML = '';
+        console.log('Dados de histórico:', data);
+        const historicoList = document.getElementById('historico-habitos');
 
-        // Usando for...of para iterar sobre o histórico
-        for (const historico of data) {
-          const li = document.createElement('li');
-          li.className = 'collection-item';
-          li.textContent = `${historico.data} - ${historico.habito.descricao}`;
-          historicoList.appendChild(li);
+        if (historicoList) {
+          historicoList.innerHTML = '';
+
+          if (Array.isArray(data)) {
+            // Iterando sobre o histórico
+            for (const historico of data) {
+              if (historico && historico.habito && historico.data) {  // Verificação de 'habito' e 'data'
+                const li = document.createElement('li');
+                li.classList.add('collection-item');
+                li.textContent = `Hábito ID: ${historico.habito} - Data: ${historico.data}`;
+                historicoList.appendChild(li);
+              } else {
+                console.error('Histórico mal formado:', historico);
+              }
+            }
+          } else {
+            console.error('Os dados de histórico não são um array válido:', data);
+          }
+        } else {
+          console.error('Elemento historicoList não encontrado no DOM');
         }
       })
       .catch(error => console.error('Erro ao carregar histórico de hábitos:', error));
   }
 
+  function adicionarHabito() {
+    document.getElementById('form-habito').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const descricaoHabito = document.getElementById('descricao_habito').value;
+  
+      fetch('http://localhost:8080/habito/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id:5, descricao: descricaoHabito, id_usuario: 1 }) // Adicionando id_usuario fixo
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro na resposta da rede');
+        }
+        return response.json();
+      })
+      .then(data => {
+        M.toast({html: 'Hábito adicionado com sucesso!'});
+        carregarHabitos(); // Recarregar a lista de hábitos
+        carregarHistoricoHabitos(); // Recarregar o histórico de hábitos
+      })
+      .catch(error => console.error('Erro ao adicionar hábito:', error));
+    });
+  }
+
+  // Carregar hábitos e histórico ao inicializar a página
   carregarHabitos();
   carregarHistoricoHabitos();
   adicionarHabito();
