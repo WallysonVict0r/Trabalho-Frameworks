@@ -22,12 +22,12 @@ public class UsuarioController {
 
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<UsuarioEntity> listarUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public LoginReponseDTO adicionarUsuario(@RequestBody CadastroRequestDTO usuario) {
         return authenticationService.cadastrar(usuario);
     }
