@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Início - Task & Tracker</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Task & Tracker</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="../index.html">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="../tarefas/tarefas.html">Tarefas</a></li>
+        <li class="nav-item active"><a class="nav-link" href="../habitos/habitos.html">Hábitos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h5 class="text-center">Gerenciamento de Hábitos</h5>
+
+    <div class="row">
+      <form id="form-habito" class="col-12">
+        <div class="form-row">
+          <div class="form-group col-10">
+            <input id="descricao_habito" type="text" class="form-control" placeholder="Novo Hábito">
+          </div>
+          <div class="col-2">
+            <button class="btn btn-primary btn-block" type="submit">Adicionar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <h6>Meus Hábitos</h6>
+    <ul id="lista-habitos" class="list-group mb-4"></ul>
+
+    <h6>Histórico de Hábitos</h6>
+    <ul id="historico-habitos" class="list-group"></ul>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
