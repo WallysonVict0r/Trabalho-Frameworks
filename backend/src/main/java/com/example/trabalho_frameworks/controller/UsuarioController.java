@@ -1,18 +1,26 @@
 package com.example.trabalho_frameworks.controller;
 
+import com.example.trabalho_frameworks.dtos.CadastroRequestDTO;
+import com.example.trabalho_frameworks.dtos.LoginReponseDTO;
+import com.example.trabalho_frameworks.dtos.LoginRequestDTO;
 import com.example.trabalho_frameworks.entities.UsuarioEntity;
 import com.example.trabalho_frameworks.repository.UsuarioRepository;
+import com.example.trabalho_frameworks.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
+    @Autowired
+    private AuthenticationService authenticationService;
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+
 
     @GetMapping
     public List<UsuarioEntity> listarUsuarios() {
@@ -20,17 +28,17 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioEntity adicionarUsuario(@RequestBody UsuarioEntity usuario) {
-        return usuarioRepository.save(usuario);
+    public LoginReponseDTO adicionarUsuario(@RequestBody CadastroRequestDTO usuario) {
+        return authenticationService.cadastrar(usuario);
     }
 
     @GetMapping("/{id}")
-    public UsuarioEntity obterUsuarioPorId(@PathVariable Long id) {
+    public UsuarioEntity obterUsuarioPorId(@PathVariable UUID id) {
         return usuarioRepository.findById(id).orElse(null);
     }
 
     @PutMapping("/{id}")
-    public UsuarioEntity atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioEntity usuarioAtualizado) {
+    public UsuarioEntity atualizarUsuario(@PathVariable UUID id, @RequestBody UsuarioEntity usuarioAtualizado) {
         return usuarioRepository.findById(id)
                 .map(usuario -> {
                     usuario.setNome(usuarioAtualizado.getNome());
@@ -40,8 +48,8 @@ public class UsuarioController {
                 }).orElse(null);
     }
 
-    @DeleteMapping("/{id}")
-    public void removerUsuario(@PathVariable Long id) {
-        usuarioRepository.deleteById(id);
+    @PostMapping("/login")
+    public LoginReponseDTO login(@RequestBody LoginRequestDTO usuario) {
+        return authenticationService.doLogin(usuario);
     }
 }

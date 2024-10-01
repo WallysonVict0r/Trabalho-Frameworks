@@ -9,8 +9,8 @@ import java.util.List;
 @Repository
 public interface TarefaRepository extends JpaRepository<TarefaEntity, Long> {
 
-    List<TarefaEntity> findByConcluidaFalse();
+    List<TarefaEntity> findByIsConcluidaFalse();
 
     // Método para buscar tarefas concluídas
-    List<TarefaEntity> findByConcluidaTrue();
+    List<TarefaEntity> findByIsConcluidaTrue();
 }

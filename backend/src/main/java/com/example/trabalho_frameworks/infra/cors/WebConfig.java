@@ -1,4 +1,4 @@
-package com.example.trabalho_frameworks.config.cors;
+package com.example.trabalho_frameworks.infra.cors;
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

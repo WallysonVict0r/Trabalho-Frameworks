@@ -32,19 +32,19 @@ public class TarefaController {
                     tarefa.setDescricao(tarefaAtualizada.getDescricao());
                     tarefa.setDataInicio(tarefaAtualizada.getDataInicio());
                     tarefa.setDataLimite(tarefaAtualizada.getDataLimite());
-                    tarefa.setConcluida(tarefaAtualizada.getConcluida());
+                    tarefa.setConcluida(tarefaAtualizada.isConcluida());
                     TarefaEntity atualizada = tarefaRepository.save(tarefa);
                     return ResponseEntity.ok(atualizada);
                 }).orElse(ResponseEntity.notFound().build());
     }
     @GetMapping("/pendentes")
     public List<TarefaEntity> listarTarefasPendentes() {
-        return tarefaRepository.findByConcluidaFalse();
+        return tarefaRepository.findByIsConcluidaFalse();
     }
 
 
     @GetMapping("/concluidas")
     public List<TarefaEntity> listarTarefasConcluidas() {
-        return tarefaRepository.findByConcluidaTrue();
+        return tarefaRepository.findByIsConcluidaTrue();
     }
 }
