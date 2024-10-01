@@ -2,30 +2,30 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.tabs');
     M.Tabs.init(elems);
     function carregarTarefas() {
-      fetch('http://localhost:8080/tarefa/all')
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error('Network response was not ok: ' + response.statusText);
-              }
-              return response.json();
-          })
-          .then(data => {
-              console.log(data); // Adicione este log para inspecionar os dados retornados
-              // Verifique se 'data' é um array
-              if (Array.isArray(data)) {
-                  data.forEach(tarefa => {
-                      console.log(tarefa); // Aqui você pode manipular as tarefas
-                  });
-              } else {
-                  console.error('O retorno não é um array:', data);
-              }
-          })
-          .catch(error => {
-              console.error('Erro ao carregar tarefas:', error);
-          });
-  }
-
+        fetch('http://localhost:8080/tarefa/pendentes')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar tarefas');
+                }
+                return response.json();
+            })
+            .then(tarefas => {
+                if (Array.isArray(tarefas)) {
+                    
+                    tarefas.map(tarefa => {
+                
+                        console.log(tarefa);
+                    });
+                } else {
+                    console.error('Tarefas não são um array');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+    }
     
+    // Chame a função para carregar as tarefas
     carregarTarefas();
   document.getElementById('salvar-tarefa-btn').addEventListener('click', function () {
     const descricao = document.getElementById('descricao-tarefa').value;
