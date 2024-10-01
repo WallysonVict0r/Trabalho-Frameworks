@@ -1,26 +1,52 @@
 package com.example.trabalho_frameworks.controller;
 
+import com.example.trabalho_frameworks.dtos.HabitosReponseDTO;
 import com.example.trabalho_frameworks.entities.HabitoEntity;
+import com.example.trabalho_frameworks.entities.UsuarioEntity;
 import com.example.trabalho_frameworks.repository.HabitoRepository;
+import com.example.trabalho_frameworks.repository.UsuarioRepository;
+import com.example.trabalho_frameworks.services.SecurityService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/habitos")
+@AllArgsConstructor
 public class HabitoController {
-
-    @Autowired
-    private HabitoRepository habitoRepository;
+    private final HabitoRepository habitoRepository;
+    private final SecurityService securityService;
+    private final UsuarioRepository usuarioRepository;
 
     @GetMapping("/all")
     public List<HabitoEntity> listarHabitos() {
-        return habitoRepository.findAll();
+        UsuarioEntity user = securityService.getUsuario();
+        return user.getHabitos();
     }
 
     @PostMapping("/add")
-    public HabitoEntity adicionarHabito(@RequestBody HabitoEntity habito) {
-        return habitoRepository.save(habito);
+    public ResponseEntity<HabitosReponseDTO> adicionarHabito(@RequestBody HabitoEntity habito) {
+        try {
+            UsuarioEntity usuario = securityService.getUsuario();
+
+            List<HabitoEntity> habitos = usuario.getHabitos();
+            habitos.add(habito);
+            usuario.setHabitos(habitos);
+
+            habito = habitoRepository.save(habito);
+            usuarioRepository.save(usuario);
+
+            HabitosReponseDTO habitoResponseDTO = new HabitosReponseDTO(
+                    habito.getId(), habito.getDescricao(), usuario.getNome()
+            );
+
+            return ResponseEntity.ok(habitoResponseDTO);
+        }
+        catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

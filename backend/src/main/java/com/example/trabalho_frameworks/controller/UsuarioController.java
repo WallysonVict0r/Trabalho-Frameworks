@@ -17,35 +17,10 @@ import java.util.UUID;
 public class UsuarioController {
     @Autowired
     private AuthenticationService authenticationService;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
-
-
-    @GetMapping
-    public List<UsuarioEntity> listarUsuarios() {
-        return usuarioRepository.findAll();
-    }
-
-    @PostMapping
+    @PostMapping("/cadastrar")
     public LoginReponseDTO adicionarUsuario(@RequestBody CadastroRequestDTO usuario) {
         return authenticationService.cadastrar(usuario);
-    }
-
-    @GetMapping("/{id}")
-    public UsuarioEntity obterUsuarioPorId(@PathVariable UUID id) {
-        return usuarioRepository.findById(id).orElse(null);
-    }
-
-    @PutMapping("/{id}")
-    public UsuarioEntity atualizarUsuario(@PathVariable UUID id, @RequestBody UsuarioEntity usuarioAtualizado) {
-        return usuarioRepository.findById(id)
-                .map(usuario -> {
-                    usuario.setNome(usuarioAtualizado.getNome());
-                    usuario.setEmail(usuarioAtualizado.getEmail());
-                    usuario.setSenha(usuarioAtualizado.getSenha());
-                    return usuarioRepository.save(usuario);
-                }).orElse(null);
     }
 
     @PostMapping("/login")
