@@ -1,6 +1,7 @@
 package com.example.trabalho_frameworks.controller;
 
 import com.example.trabalho_frameworks.dtos.HabitosReponseDTO;
+import com.example.trabalho_frameworks.dtos.TarefaRequestDTO;
 import com.example.trabalho_frameworks.dtos.TarefaResponseDTO;
 import com.example.trabalho_frameworks.entities.HabitoEntity;
 import com.example.trabalho_frameworks.entities.TarefaEntity;
@@ -31,15 +32,20 @@ public class TarefaController {
 
 
     @PostMapping
-    public ResponseEntity<TarefaResponseDTO> atualizarTarefa(@RequestBody TarefaEntity tarefa) {
+    public ResponseEntity<TarefaResponseDTO> atualizarTarefa(@RequestBody TarefaRequestDTO request) {
         try {
-            UsuarioEntity usuario = securityService.getUsuario();
+            TarefaEntity tarefa = new TarefaEntity();
+            tarefa.setConcluida(request.isConcluida());
+            tarefa.setDataInicio(request.dataInicio());
+            tarefa.setDataLimite(request.dataLimite());
+            tarefa.setDescricao(request.descricao());
+            tarefa = tarefaRepository.save(tarefa);
 
+            UsuarioEntity usuario = securityService.getUsuario();
             List<TarefaEntity> tarefas = usuario.getTarefas();
+
             tarefas.add(tarefa);
             usuario.setTarefas(tarefas);
-
-            tarefa = tarefaRepository.save(tarefa);
             usuario = usuarioRepository.save(usuario);
 
             TarefaResponseDTO tarefaResponseDTO = new TarefaResponseDTO(

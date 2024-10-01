@@ -40,7 +40,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll())
+                        .requestMatchers(HttpMethod.POST, "usuarios/login", "usuarios/cadastrar").permitAll()
+                        .anyRequest().authenticated())
                 .addFilterBefore(securityTokenFilter, UsernamePasswordAuthenticationFilter.class) // Resgata o usuario com base no token
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .build();
@@ -51,7 +52,7 @@ public class SecurityConfig {
         String[] origins = corsOrigins.split(",");
 
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOriginPatterns(Arrays.asList(origins));
+        corsConfig.setAllowedOrigins(Arrays.asList(origins));
         corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH"));
         corsConfig.setAllowCredentials(true);
         corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Bearer", "token"));

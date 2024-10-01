@@ -45,7 +45,7 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(rsaKeys.getPrivateKey());
 
             return JWT.require(algorithm)
-                    .withIssuer("AssetInsight")
+                    .withIssuer("Juliane")
                     .build()
                     .verify(token).getSubject();
         } catch (Exception e) {
