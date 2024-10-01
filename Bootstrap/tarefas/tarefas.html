@@ -1,74 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habitos - Task & Tracker</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas - Task & Tracker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Task & Tracker</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand text-white" href="#">Task & Tracker</a>
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active"><a class="nav-link" href="../tarefas/tarefas.html">Tarefas</a></li>
-        <li class="nav-item"><a class="nav-link" href="../habitos/habitos.html">Hábitos</a></li>
-      </ul>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="tarefas.html">Tarefas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../habitos/habitos.html">Hábitos</a>
+            </li>
+        </ul>
     </div>
-  </nav>
+</nav>
 
-  <h5 class="text-center mt-4">Tarefas</h5>
-  
-  <ul class="nav nav-tabs nav-justified mt-3 mx-auto" id="myTab" style="width: 60%;" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="pendentes-tab" data-toggle="tab" href="#pendentes" role="tab">Pendentes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="concluidas-tab" data-toggle="tab" href="#concluidas" role="tab">Concluídas</a>
-    </li>
-  </ul>
-  
-  <div class="tab-content mt-3">
-    <div class="tab-pane fade show active" id="pendentes" role="tabpanel">
-      <ul id="lista-tarefas-pendentes" class="list-group"></ul>
-    </div>
-    <div class="tab-pane fade" id="concluidas" role="tabpanel">
-      <ul id="lista-tarefas-concluidas" class="list-group"></ul>
-    </div>
-  </div>
-  
-  <div class="fixed-bottom d-flex justify-content-end mb-4 mr-4">
-    <button class="btn btn-primary btn-lg rounded-circle" data-toggle="modal" data-target="#modal-add-tarefa">
-      <i class="bi bi-plus-lg"></i>
-    </button>
-  </div>
-  
-  <div class="modal fade" id="modal-add-tarefa" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Adicionar Tarefa</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <input id="descricao-tarefa" type="text" class="form-control" placeholder="Descrição da Tarefa">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" id="salvar-tarefa-btn">Salvar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container mt-4">
+    <h5 class="text-center">Tarefas</h5>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="tarefas.js"></script>
+    <div id="todas-tarefas" class="col-12">
+        <ul id="lista-tarefas" class="list-group"></ul>
+    </div>
+
+    <div class="fixed-bottom d-flex justify-content-end p-3">
+        <button class="btn btn-primary btn-lg rounded-circle" data-toggle="modal" data-target="#modal-add-tarefa">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-add-tarefa" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Adicionar Tarefa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="descricao-tarefa">Descrição da Tarefa</label>
+                        <input type="text" class="form-control" id="descricao-tarefa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="data-inicio">Data de Início</label>
+                        <input type="date" class="form-control" id="data-inicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora-inicio">Hora de Início</label>
+                        <input type="time" class="form-control" id="hora-inicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="data-limite">Data Limite</label>
+                        <input type="date" class="form-control" id="data-limite" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora-limite">Hora Limite</label>
+                        <input type="time" class="form-control" id="hora-limite" required>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="concluida">
+                        <label class="form-check-label" for="concluida">Tarefa Concluída</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="salvar-tarefa-btn">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="tarefas.js"></script>
+
+<script>
+  
+</script>
 </body>
 </html>
