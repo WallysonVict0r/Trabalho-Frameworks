@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
           listaHabitos.innerHTML = '';
 
           if (Array.isArray(data)) {
-            // Iterando sobre os hábitos
+            
             for (const habito of data) {
-              if (habito && habito.descricao) {  // Verificação de 'descricao'
+              if (habito && habito.descricao) { 
                 const li = document.createElement('li');
                 li.classList.add('collection-item');
                 li.textContent = habito.descricao;
@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
           historicoList.innerHTML = '';
 
           if (Array.isArray(data)) {
-            // Iterando sobre o histórico
+            
             for (const historico of data) {
-              if (historico && historico.habito && historico.data) {  // Verificação de 'habito' e 'data'
+              if (historico && historico.habito && historico.data) {  
                 const li = document.createElement('li');
                 li.classList.add('collection-item');
                 li.textContent = `Hábito ID: ${historico.habito} - Data: ${historico.data}`;
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id:5, descricao: descricaoHabito, id_usuario: 1 }) // Adicionando id_usuario fixo
+        body: JSON.stringify({id:5, descricao: descricaoHabito, id_usuario: 1 }) 
       })
       .then(response => {
         if (!response.ok) {
@@ -96,14 +96,14 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(data => {
         M.toast({html: 'Hábito adicionado com sucesso!'});
-        carregarHabitos(); // Recarregar a lista de hábitos
-        carregarHistoricoHabitos(); // Recarregar o histórico de hábitos
+        carregarHabitos(); 
+        carregarHistoricoHabitos(); 
       })
       .catch(error => console.error('Erro ao adicionar hábito:', error));
     });
   }
 
-  // Carregar hábitos e histórico ao inicializar a página
+  
   carregarHabitos();
   carregarHistoricoHabitos();
   adicionarHabito();

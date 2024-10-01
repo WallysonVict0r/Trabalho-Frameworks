@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         listaHabitos.innerHTML = '';
         historicoHabitos.innerHTML = '';
 
-        // Usando for...of para iterar sobre os hábitos
+        
         for (const habito of data.habitos) {
           const li = document.createElement('li');
           li.classList.add('collection-item');
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
           listaHabitos.appendChild(li);
         }
 
-        // Usando for...of para iterar sobre o histórico
+        
         for (const historico of data.historico) {
           const li = document.createElement('li');
           li.classList.add('collection-item');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function carregarHistoricoHabitos() {
-    fetch('http://localhost:8080/habito-historico/all')  // Adicione o endpoint correto aqui
+    fetch('http://localhost:8080/habito-historico/all')  
       .then(response => {
         if (!response.ok) {
           throw new Error('Erro na resposta da rede');
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const historicoList = document.getElementById('historico-habitos-list');
         historicoList.innerHTML = '';
 
-        // Usando for...of para iterar sobre o histórico
+       
         for (const historico of data) {
           const li = document.createElement('li');
           li.className = 'collection-item';
