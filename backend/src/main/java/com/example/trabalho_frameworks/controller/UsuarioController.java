@@ -18,6 +18,7 @@ public class UsuarioController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    
     @PostMapping("/cadastrar")
     public LoginReponseDTO adicionarUsuario(@RequestBody CadastroRequestDTO usuario) {
         return authenticationService.cadastrar(usuario);

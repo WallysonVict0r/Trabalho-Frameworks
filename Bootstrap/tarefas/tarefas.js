@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(() => {
                     alert('Tarefa adicionada com sucesso!');
                     carregarTarefas(); 
-                    $('#modal-add-tarefa').modal('hide'); // Fecha o modal
+                    $('#modal-add-tarefa').modal('hide'); 
                 })
                 .catch(error => console.error('Erro ao adicionar tarefa:', error));
         } else {
