@@ -43,7 +43,7 @@ public class AuthenticationService {
     }
 
     public LoginReponseDTO cadastrar(CadastroRequestDTO request) {
-        if (usuarioRepository.findByEmailIgnoreCase(request.username()).isPresent()) {
+        if (usuarioRepository.findByNomeIgnoreCase(request.username()).isPresent()) {
             throw new ValidationException("Usuário já cadastrado.");
         }
 

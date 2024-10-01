@@ -23,7 +23,7 @@ public class AuthorizationService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmailIgnoreCase(username)
+        return userRepository.findByNomeIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException("loadUserByUsername: Usuario não encontrado."));
     }
 }

@@ -59,7 +59,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return nome;
     }
 
     @Override

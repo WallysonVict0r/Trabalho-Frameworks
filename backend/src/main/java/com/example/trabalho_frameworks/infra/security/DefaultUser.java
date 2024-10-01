@@ -1,4 +1,4 @@
-package com.example.trabalho_frameworks.repository;
+package com.example.trabalho_frameworks.infra.security;
 
 import com.example.trabalho_frameworks.dtos.CadastroRequestDTO;
 import com.example.trabalho_frameworks.services.AuthenticationService;

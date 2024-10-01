@@ -37,7 +37,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             var subject = tokenService.getSubjectByToken(token); // Decodifica o token utilizando a secret para pegar o username
 
-            UsuarioEntity user = userRepository.findByEmail(subject)
+            UsuarioEntity user = userRepository.findByNome(subject)
                     .orElseThrow(() -> new SecurityException("Usuário ["+ subject +"] não pode ser encontrado."));;
 
             //Pega os dados de autentificação do usuario
