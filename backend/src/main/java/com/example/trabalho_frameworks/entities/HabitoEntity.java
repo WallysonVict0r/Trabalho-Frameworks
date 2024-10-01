@@ -15,9 +15,8 @@ public class HabitoEntity {
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private UsuarioEntity usuario;
+    @Column(name = "id_usuario")
+    private Long usuario;
 
     @OneToMany(mappedBy = "habito", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HabitoHistoricoEntity> habitoHistorico;
@@ -39,11 +38,11 @@ public class HabitoEntity {
         this.descricao = descricao;
     }
 
-    public UsuarioEntity getUsuario() {
+    public Long getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(UsuarioEntity usuario) {
+    public void setUsuario(Long usuario) {
         this.usuario = usuario;
     }
 

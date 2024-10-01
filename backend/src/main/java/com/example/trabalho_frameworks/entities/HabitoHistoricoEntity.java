@@ -10,12 +10,16 @@ public class HabitoHistoricoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "data")
     private LocalDate data;
 
-    @ManyToOne
-    @JoinColumn(name = "id_habito")
-    private HabitoEntity habito;
+    @Column(name = "id_habito") // Coluna de junção que faz referência ao id de HabitoEntity
+    private Long habito;
+
+    @Column(name = "id_usuario") // Coluna de junção que faz referência ao id de UsuarioEntity
+    private Long usuario;
+
 
     // Getters e Setters
     public Long getId() {
@@ -34,11 +38,19 @@ public class HabitoHistoricoEntity {
         this.data = data;
     }
 
-    public HabitoEntity getHabito() {
+    public Long getHabito() {
         return habito;
     }
 
-    public void setHabito(HabitoEntity habito) {
+    public void setHabito(Long habito) {
         this.habito = habito;
+    }
+
+    public Long getIdUsuario() {
+        return usuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.usuario = idUsuario;
     }
 }

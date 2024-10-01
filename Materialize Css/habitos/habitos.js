@@ -12,10 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(data => {
         const listaHabitos = document.getElementById('lista-habitos');
-        const historicoHabitos = document.getElementById('historico-habitos');
+const historicoHabitos = document.getElementById('historico-habitos');
 
-        listaHabitos.innerHTML = '';
-        historicoHabitos.innerHTML = '';
+    if (listaHabitos && historicoHabitos) {
+      listaHabitos.innerHTML = '';
+      historicoHabitos.innerHTML = '';
 
         // Usando for...of para iterar sobre os hábitos
         for (const habito of data.habitos) {
@@ -32,9 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
           li.textContent = `Hábito: ${historico.habito.descricao} - Data: ${historico.data}`;
           historicoHabitos.appendChild(li);
         }
+      }
       })
       .catch(error => console.error('Erro ao carregar hábitos:', error));
   }
+  
 
   function adicionarHabito() {
     document.getElementById('form-habito').addEventListener('submit', function(event) {
