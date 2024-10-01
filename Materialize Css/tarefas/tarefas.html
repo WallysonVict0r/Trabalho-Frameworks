@@ -34,22 +34,35 @@
     </div>
 </div>
 
-<!-- Modal para adicionar tarefa -->
 <div id="modal-add-tarefa" class="modal">
   <div class="modal-content">
       <h4>Adicionar Tarefa</h4>
+
       <div class="input-field">
           <input id="descricao-tarefa" type="text" required>
           <label for="descricao-tarefa">Descrição da Tarefa</label>
       </div>
+
       <div class="input-field">
           <input id="data-inicio" type="text" class="datepicker" required>
           <label for="data-inicio">Data de Início</label>
       </div>
+
+      <div class="input-field">
+          <input id="hora-inicio" type="text" class="timepicker" required>
+          <label for="hora-inicio">Hora de Início</label>
+      </div>
+
       <div class="input-field">
           <input id="data-limite" type="text" class="datepicker" required>
           <label for="data-limite">Data Limite</label>
       </div>
+
+      <div class="input-field">
+          <input id="hora-limite" type="text" class="timepicker" required>
+          <label for="hora-limite">Hora Limite</label>
+      </div>
+
       <div class="input-field">
           <label>
               <input type="checkbox" id="concluida" />
@@ -57,6 +70,7 @@
           </label>
       </div>
   </div>
+
   <div class="modal-footer">
       <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
       <a href="#" class="waves-effect waves-green btn-flat" id="salvar-tarefa-btn">Salvar</a>
@@ -71,6 +85,7 @@
       var elems = document.querySelectorAll('.modal');
       var instances = M.Modal.init(elems);
   });
+  
 </script>
 </body>
 </html>

@@ -27,7 +27,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(rsaKeys.getPrivateKey());
             String token = JWT.create()
-                    .withIssuer("AssetInsight")
+                    .withIssuer("Juliane")
                     .withSubject(usuario.getUsername())
                     .withExpiresAt(getExpirationDate(expiration))
                     .withIssuedAt(getIssuedAt())

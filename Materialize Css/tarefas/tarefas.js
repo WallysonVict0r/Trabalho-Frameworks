@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
     const listaTarefas = document.getElementById('lista-tarefas');
 
+   
     function carregarTarefas() {
         const token = localStorage.getItem('token');
 
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Erro ao carregar tarefas:', error));
     }
 
+    
     function calcularPorcentagem(dataInicio, dataLimite) {
         const hoje = new Date();
         const inicio = new Date(dataInicio);
@@ -53,54 +56,75 @@ document.addEventListener('DOMContentLoaded', function() {
         const porcentagem = (diasPassados / totalDias) * 100;
         return Math.min(Math.max(porcentagem, 0), 100).toFixed(2); 
     }
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.datepicker');
-        var options = {
-          format: 'dd/mm/yyyy',  // Define o formato da data
-          yearRange: [1900, 2100], // Define o intervalo de anos
-          autoClose: true // Fecha o datepicker automaticamente após selecionar
-        };
-        var instances = M.Datepicker.init(elems, options);
-      });
 
-        document.getElementById('salvar-tarefa-btn').addEventListener('click', function () {
-            const descricao = document.getElementById('descricao-tarefa').value;
-            const dataInicio = document.getElementById('data-inicio').value;
-            const dataLimite = document.getElementById('data-limite').value;
-            const concluida = document.getElementById('concluida').checked;
     
-            if (descricao) {
-                const token = localStorage.getItem('token'); 
-    
-                fetch('http://localhost:8080/tarefa/add', { 
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        descricao: descricao,
-                        concluida: concluida,
-                        data_inicio: dataInicio,
-                        data_limite: dataLimite
-                    })
-                })
-                .then(response => response.json())
-                .then(() => {
-                    alert('Tarefa adicionada com sucesso!');
-                    carregarTarefas(); 
-                    var modalInstance = M.Modal.getInstance(document.getElementById('modal-add-tarefa'));
-                    modalInstance.close(); // Fecha o modal
-                    document.getElementById('modal-add-tarefa').reset(); // Limpa os campos do modal
-                })
-                .catch(error => console.error('Erro ao adicionar tarefa:', error));
-            } else {
-                alert('Preencha a descrição da tarefa!');
-            }
-        });
-        carregarTarefas();
+    var dateElems = document.querySelectorAll('.datepicker');
+    M.Datepicker.init(dateElems, {
+        format: 'yyyy-mm-dd',
+        autoClose: true
     });
 
+    var timeElems = document.querySelectorAll('.timepicker');
+    M.Timepicker.init(timeElems, {
+        twelveHour: false, 
+        autoClose: true
+    });
 
+    
+    function formatarDataHora(data, hora) {
+        const [horas, minutos] = hora.split(':');
+        const dataFormatada = new Date(data);
+        dataFormatada.setHours(horas);
+        dataFormatada.setMinutes(minutos);
+        return dataFormatada.toISOString().slice(0, 19); 
+    }
 
+   
+    document.getElementById('salvar-tarefa-btn').addEventListener('click', function () {
+        const descricao = document.getElementById('descricao-tarefa').value;
+        const dataInicio = document.getElementById('data-inicio').value;
+        const horaInicio = document.getElementById('hora-inicio').value;
+        const dataLimite = document.getElementById('data-limite').value;
+        const horaLimite = document.getElementById('hora-limite').value;
+        const concluida = document.getElementById('concluida').checked;
 
+        if (descricao && dataInicio && horaInicio && dataLimite && horaLimite) {
+            const token = localStorage.getItem('token');
+
+            const dataHoraInicio = formatarDataHora(dataInicio, horaInicio);
+            const dataHoraLimite = formatarDataHora(dataLimite, horaLimite);
+
+            fetch('http://localhost:8080/tarefa', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    descricao: descricao,
+                    dataInicio: dataHoraInicio,
+                    dataLimite: dataHoraLimite,
+                    isConcluida: concluida
+                })
+            })
+            .then(response => response.json())
+            .then(() => {
+                M.toast({ html: 'Tarefa adicionada com sucesso!' });
+                carregarTarefas(); 
+                var modalInstance = M.Modal.getInstance(document.getElementById('modal-add-tarefa'));
+                modalInstance.close(); // Fecha o modal
+                document.getElementById('descricao-tarefa').value = '';
+                document.getElementById('data-inicio').value = '';
+                document.getElementById('hora-inicio').value = '';
+                document.getElementById('data-limite').value = '';
+                document.getElementById('hora-limite').value = '';
+                document.getElementById('concluida').checked = false; 
+            })
+            .catch(error => console.error('Erro ao adicionar tarefa:', error));
+        } else {
+            alert('Preencha todos os campos!');
+        }
+    });
+
+    carregarTarefas();
+});

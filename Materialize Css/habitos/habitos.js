@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
   M.Modal.init(modals);
 
   function carregarHabitos() {
-      const token = localStorage.getItem('token'); // Obtendo o token armazenado
+      const token = localStorage.getItem('token'); 
 
       fetch('http://localhost:8080/habitos/all', {
           method: 'GET',
           headers: {
-              'Authorization': `Bearer ${token}` // Incluindo o token no cabeçalho
+              'Authorization': `Bearer ${token}`
           }
       })
       .then(response => {
@@ -49,17 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('form-habito').addEventListener('submit', function(event) {
           event.preventDefault();
           const descricaoHabito = document.getElementById('descricao_habito').value;
-          const idUsuario = "a31f2434-177f-4fdf-bcbe-35e387f4ef4f"; // Obtendo ID do usuário
           const token = localStorage.getItem('token'); 
 
           fetch('http://localhost:8080/habitos/add', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}` // Incluindo o token no cabeçalho
+                  'Authorization': `Bearer ${token}` 
               },
-              body: JSON.stringify({      // Incluindo ID do hábito
-                  id_usuario: idUsuario, // Incluindo ID do usuário
+              body: JSON.stringify({      
+            
                   descricao: descricaoHabito
               }) 
           })
@@ -71,15 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
           })
           .then(data => {
               M.toast({ html: 'Hábito adicionado com sucesso!' });
-              carregarHabitos(); // Carregar hábitos após adicionar
-              // Opcional: Limpar os campos do formulário após a adição
+              carregarHabitos(); 
+             
               document.getElementById('form-habito').reset();
           })
           .catch(error => console.error('Erro ao adicionar hábito:', error));
       });
   }
 
-  // Inicialização das funções
   carregarHabitos();
   adicionarHabito();
 });
