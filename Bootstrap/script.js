@@ -5,19 +5,20 @@ document.getElementById('login-btn').addEventListener('click', function() {
     fetch('http://localhost:8080/usuarios/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json'
         },
-        body: `username=${username}&password=${password}`
+        body: JSON.stringify({ username: username, password: password })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Login falhou');
-        }
-        return response.text();
-    })
-    .then(token => {
-        localStorage.setItem('token', token); 
-        window.location.href = '/tarefas/tarefas.html'; 
-    })
-    .catch(error => console.error('Erro ao fazer login:', error));
-});
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Login falhou');
+          }
+          return response.text();
+      })
+      .then(token => {
+          localStorage.setItem('token', token); 
+          window.location.href = 'http://127.0.0.1:5501/tarefas/tarefas.html'; 
+      })
+      .catch(error => console.error('Erro ao fazer login:', error));
+    });
+

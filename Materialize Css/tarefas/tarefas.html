@@ -1,60 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarefas - Task & Tracker</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas - Task & Tracker</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
 
-  
-    <nav>
-        <div class="nav-wrapper blue">
-          <a href="#" class="brand-logo center">Task & Tracker</a>
-          <ul id="nav-mobile" class="left hide-on-med-and-down">
+<nav>
+    <div class="nav-wrapper blue">
+        <a href="#" class="brand-logo center">Task & Tracker</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="tarefas.html">Tarefas</a></li>
-            <li><a href="../habitos/habitos.html">Hábitos</a></li> 
-          </ul>
-        </div>
-      </nav>
+            <li><a href="../habitos/habitos.html">Hábitos</a></li>
+        </ul>
+    </div>
+</nav>
 
-  <div class="container">
-  
+<div class="container">
     <h5 class="center-align">Tarefas</h5>
 
     <div id="todas-tarefas" class="col s12">
-      <ul id="lista-tarefas" class="collection">
-       
-      </ul>
+        <ul id="lista-tarefas" class="collection"></ul>
     </div>
 
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue modal-trigger" href="#modal-add-tarefa">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+</div>
 
-  <div class="fixed-action-btn">
-    <a class="btn-floating btn-large blue modal-trigger" href="#modal-add-tarefa">
-        <i class="large material-icons">add</i>
-    </a>
-</div>
-</div>
+<!-- Modal para adicionar tarefa -->
 <div id="modal-add-tarefa" class="modal">
-    <div class="modal-content">
-        <h4>Adicionar Tarefa</h4>
-        <div class="input-field">
-            <input id="descricao-tarefa" type="text">
-            <label for="descricao-tarefa">Descrição da Tarefa</label>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-        <a href="#" class="waves-effect waves-green btn-flat" id="salvar-tarefa-btn">Salvar</a>
-    </div>
+  <div class="modal-content">
+      <h4>Adicionar Tarefa</h4>
+      <div class="input-field">
+          <input id="descricao-tarefa" type="text" required>
+          <label for="descricao-tarefa">Descrição da Tarefa</label>
+      </div>
+      <div class="input-field">
+          <input id="data-inicio" type="text" class="datepicker" required>
+          <label for="data-inicio">Data de Início</label>
+      </div>
+      <div class="input-field">
+          <input id="data-limite" type="text" class="datepicker" required>
+          <label for="data-limite">Data Limite</label>
+      </div>
+      <div class="input-field">
+          <label>
+              <input type="checkbox" id="concluida" />
+              <span>Tarefa Concluída</span>
+          </label>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+      <a href="#" class="waves-effect waves-green btn-flat" id="salvar-tarefa-btn">Salvar</a>
+  </div>
 </div>
 
 
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="tarefas.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="tarefas.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems);
+  });
+</script>
 </body>
 </html>
